@@ -1,0 +1,24 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3400:3400"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5500:5500"
+    environment:
+      - PORT=5500
+      - MONGO_URL=mongodb://mongo:27017/mydatabase
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
